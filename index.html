@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Ravelang</title>
+        <link rel="stylesheet" href="css/index.css">
+    </head>
+    <body>
+        <div id="all">
+        <div id="info_map_ip" style="width:1px; height:1px;display:none;opacity:0;"></div>
+		<script src="http://api-maps.yandex.ru/2.0/?load=package.standard&lang=ru-RU" type="text/javascript"></script>
+        <script>
+            ymaps.ready(init);
+
+            function set1() {
+                /*document.getElementById("all").innerHTML =
+                "<h1 align=\"center\">Останови войну!</h1><h3 align=\"center\">Переход на главную страницу будет через 5 секунд.</h3>";
+                document.title = "#НетВойне"*/
+            }
+
+            function set(){
+                set1();
+                //setTimeout(set2, 6000);
+            }
+
+            function init() {
+                var geolocation = ymaps.geolocation,
+                // координаты
+                coords = [geolocation.latitude, geolocation.longitude],
+                myMap = new ymaps.Map('info_map_ip', {
+                    center: coords,
+                    zoom: 10
+                });
+                if(geolocation.country.indexOf('Росси') >= 0) {
+                    set();
+                }
+            }
+        </script>
+        <h1 align="center">Rave Programming Language</h1>
+        <article class="cards-wrapper">
+            <section class="card">
+                <h1 align="center">Fast.</h1>
+                <h4 align="center">
+                    <b>
+                    Rave is quite fast due to the fact that it is a compiler, and memory management is completely in the hands of the user.
+                    </b>
+                </h4>
+            </section>
+            <section class="card">
+                <h1 align="center">Portable.</h1>
+                <h4 align="center">
+                    <b>
+                    You can compile your program for a huge variety of platforms.
+                    </b>
+                </h4>
+            </section>
+            <section class="card">
+                <h1 align="center">Modern.</h1>
+                <h4 align="center">
+                    <b>
+                    Rave is a modern programming language that uses LLVM.
+                    </b>
+                </h4>
+            </section>
+        </article>
+        <center><div class="helloworld">
+            <p style="
+                color: #dfdfdf;
+            " align="center" translate="no">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"Hello, world!" on Rave</p>
+            <p align="center" translate="no">
+                <tag style="color:rgb(0, 135, 0);">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;import </tag>
+                <tag style="color: #dfdfdf;">&lt;std/io&gt;</tag>
+            </p>
+            <p align="center" translate="no">
+				<tag style="color: #004f99;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;int</tag>
+                <tag style="color: #dfdfdf;"> main</tag>
+                <tag style="color: #dfdfdf;"> {</tag>
+            </p>
+            <p align="center" translate="no">
+                <tag style="color: #dfdfdf;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;std::printf(</tag>
+                <tag style="color: #793e00;">"Hello, world!\n"</tag>
+                <tag style="color: #dfdfdf;">);</tag><br>
+            </p>
+            <p align="center" style="color: #dfdfdf;" translate="no">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;} => 0;</p>
+        </div></center>
+        <center>
+            <h1>
+                <a href="https://github.com/Ttimofeyka/Rave" class="url" translate="no">GitHub</a>
+            </h1>
+            <h1>
+                <a href="https://discord.gg/AfEtyArvsM" class="url" translate="no">Discord</a>
+            </h1>
+        </center></div>
+    </body>
+</html>

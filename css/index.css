@@ -1,0 +1,70 @@
+img[src*="https://cdn.000webhost.com/000webhost/logo/footer-powered-by-000webhost-white2.png"] {display: none;}
+
+@font-face {
+    font-family: Beaty; /* Гарнитура шрифта */
+    src: url("../fonts/Beaty.ttf"); /* Путь к файлу со шрифтом */
+}
+
+body {
+    font-family: Beaty, Arial,  sans-serif; /* Семейство шрифтов */
+    font-size: 11pt; /* Размер основного шрифта в пунктах  */
+    background-color: #f0f0f0; /* Цвет фона веб-страницы */
+    color: rgb(28, 28, 28); /* Цвет основного текста */ 
+}
+
+h1 {
+    font-family: Beaty, 'Comic Sans MS', cursive;
+}
+
+h2 {
+    font-family: Beaty, 'Comic Sans MS', cursive;
+}
+
+h3 {
+    font-family: Beaty, 'Comic Sans MS', cursive;
+}
+
+h4 {
+    font-family: Beaty, 'Comic Sans MS', cursive;
+}
+
+.cards-wrapper {
+    display: flex;
+    flex-flow: row wrap;
+}
+  
+.card {
+    flex: 1;
+    margin: 12px;
+    padding: 12px;
+    flex-flow: column nowrap;
+    align-items: center;
+    background: #c7c7c7;
+    border-radius: 12px;
+    margin: 1em;
+    padding: .5em;
+    height: auto;
+    width: auto;
+    min-width: 200px;
+    min-height: 120px;
+    cursor: default;
+}
+
+.helloworld {
+    border-radius: 25px;
+    background: #090909;
+    padding: 20px;
+    min-width: 240px;
+    min-height: 140px;
+    width: auto;
+    height: auto;
+    cursor: default;
+}
+
+.card:hover {
+    background: rgb(123, 123, 123);
+}
+
+.url {
+    text-decoration: none;
+}

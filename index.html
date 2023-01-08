@@ -13,28 +13,13 @@
         <script>
             ymaps.ready(init);
 
-            function set1() {
-                /*document.getElementById("all").innerHTML =
-                "<h1 align=\"center\">Останови войну!</h1><h3 align=\"center\">Переход на главную страницу будет через 5 секунд.</h3>";
-                document.title = "#НетВойне"*/
-            }
-
-            function set(){
-                set1();
-                //setTimeout(set2, 6000);
-            }
-
             function init() {
                 var geolocation = ymaps.geolocation,
-                // координаты
                 coords = [geolocation.latitude, geolocation.longitude],
                 myMap = new ymaps.Map('info_map_ip', {
                     center: coords,
                     zoom: 10
                 });
-                if(geolocation.country.indexOf('Росси') >= 0) {
-                    set();
-                }
             }
         </script>
         <h1 align="center">Rave Programming Language</h1>

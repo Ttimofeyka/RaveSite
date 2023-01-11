@@ -1,11 +1,11 @@
 {
-  "name": "Ravesite",
+  "name": "Ravelang",
   "version": "1.0.0",
   "description": "Rave Programming Language",
   "main": "",
   "scripts": {
-    "tw-watcher": "npx tailwindcss -i ./src/input.css -o ./dist/output.css --watch",
-    "production": "npx tailwindcss -i ./src/input.css -o ./dist/output.css --minify && gulp"
+    "tw-watcher": "npx tailwindcss -i ./src/input.css -o docs/output.css --watch",
+    "production": "npx tailwindcss -i ./src/input.css -o docs/output.css --minify && gulp"
   },
   "keywords": [
     "Ravelang",
@@ -13,12 +13,13 @@
     "Lang"
   ],
   "author": "GeorgeKryptonian",
-  "license": "MPL-2.0",
+  "license": "LGPL",
   "devDependencies": {
     "gulp": "^4.0.2",
     "gulp-cli": "^2.3.0",
     "gulp-cssmin": "^0.2.0",
     "gulp-htmlmin": "^5.0.1",
+    "gulp-replace": "^1.1.4",
     "tailwindcss": "^3.2.4"
   }
 }

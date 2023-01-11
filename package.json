@@ -1,0 +1,24 @@
+{
+  "name": "Ravesite",
+  "version": "1.0.0",
+  "description": "Rave Programming Language",
+  "main": "",
+  "scripts": {
+    "tw-watcher": "npx tailwindcss -i ./src/input.css -o ./dist/output.css --watch",
+    "production": "npx tailwindcss -i ./src/input.css -o ./dist/output.css --minify && gulp"
+  },
+  "keywords": [
+    "Ravelang",
+    "Rave",
+    "Lang"
+  ],
+  "author": "GeorgeKryptonian",
+  "license": "MPL-2.0",
+  "devDependencies": {
+    "gulp": "^4.0.2",
+    "gulp-cli": "^2.3.0",
+    "gulp-cssmin": "^0.2.0",
+    "gulp-htmlmin": "^5.0.1",
+    "tailwindcss": "^3.2.4"
+  }
+}

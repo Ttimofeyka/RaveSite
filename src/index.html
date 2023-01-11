@@ -1,0 +1,66 @@
+<!doctype html>
+<html class="2xl:text-[18px]" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="../dist/output.css">
+</head>
+<body class="bg-[#f0f0f0]">
+    <div class="p-6 font-beaty font-bold">
+        <h1 class="text-center text-3xl mb-9">Rave Programming Language</h1>
+        <dl class="cards grid sm:grid-cols-2 lg:grid-cols-3 gap-7 mb-6">
+            <div class="bg-[#c7c7c7] hover:bg-[#666666] text-center p-4 space-y-3 rounded-xl hover:rounded-2xl transition-all duration-150 shadow">
+                <dt>Fast</dt>
+                <dd class="text-sm">Rave is quite fast due to the fact that it is a compiler, and memory management is completely in the hands of the user</dd>
+            </div>
+            <div class="bg-[#c7c7c7] hover:bg-[#666666] text-center p-4 space-y-3 rounded-xl hover:rounded-2xl transition-all duration-150 shadow">
+                <dt>Portable</dt>
+                <dd class="text-sm">You can compile your program for a huge variety of platforms</dd>
+            </div>
+            <div class="sm:col-span-2 lg:col-span-1 bg-[#c7c7c7] hover:bg-[#666666] text-center p-4 space-y-3 rounded-xl hover:rounded-2xl transition-all duration-150 shadow">
+                <dt>Modern</dt>
+                <dd class="text-sm">Rave is a modern programming language that uses LLVM</dd>
+            </div>
+        </dl>
+        <div class="bg-black p-8 rounded-3xl text-[#dfdfdf] mb-6">
+            <pre class="flex flex-col items-center font-beaty">
+"Hello, world!" on Rave
+
+<code class="font-beaty text-sm"><span class="text-[#339900]">import</span> &ltstd/io&gt
+<span class="text-[#004f99]">void</span> main {
+    std::printIn(<span class="text-[#793e00]">"Hello world!"</span>);
+}</code>
+            </pre>
+        </div>
+        <hr class="border-none h-px bg-black rounded mb-6">
+        <div class="moreFeatures text-center space-y-4 mb-6">
+            <h2 class="text-2xl">More features</h2>
+            <div class="grid lg:grid-cols-2 2xl:grid-cols-4 gap-6">
+                <div class="speed space-y-2">
+                    <h3 class="text-xl">• Speed</h3>
+                    <p>Since the beginning of its creation, Rave has been focusing on the performance of programs written on it. Thanks to the various flags (-rco, -O 3), you can easily reach the speed of the same program in C, or even surpass it.</p>
+                </div>
+                <div class="safety space-y-2">
+                    <h3 class="text-xl">• Safety</h3>
+                    <p>Rave is not a completely safety language, but there are a lot of language constructs (for example, SafePtr) that help programmers write safely code.</p>
+                </div>
+                <div class="noPreprocessor space-y-2">
+                    <h3 class="text-xl">• No preprocessor</h3>
+                    <p>Rave does not have a built-in preprocessor. Instead, a compile time is used, which expands the capabilities of the language.</p>
+                </div>
+                <div class="workingWithOOP space-y-2">
+                    <h3 class="text-xl">• Working with OOP</h3>
+                    <p>Rave has no classes, but it has structures that can be inherited, have methods, and so on.</p>
+                </div>
+            </div>
+        </div>
+        <hr class="border-none h-px bg-black rounded mb-6">
+        <div class="links flex justify-around lg:justify-center lg:space-x-10 text-xl">
+            <a class="github flex items-center space-x-2 hover:opacity-50 transition-all duration-150" href="https://github.com/Ttimofeyka/Rave" target="_blank"><img class="w-5 h-5" src="assets/images/icons/github.svg" alt="GitHub Logo"><span>Github</span></a>
+            <a class="discord flex items-center space-x-2 hover:opacity-50 transition-all duration-150" href="https://discord.gg/AfEtyArvsM" target="_blank"><img class="w-5 h-5" src="assets/images/icons/discord.svg" alt="Discord Logo"><span>Discord</span></a>
+        </div>
+    </div>
+</body>
+</html>

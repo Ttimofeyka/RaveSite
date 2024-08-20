@@ -1,0 +1,12 @@
+<a class="news-itembox" href="<!---[byroneval f"/news/{byron_render_vars.get("newsfile")}"]--->.html">
+    <small class="news-time-n-tags"><!---[byronexec 
+from datetime import datetime
+append_html(datetime.utcfromtimestamp(int(byron_render_vars.get("newsdata")[0])).strftime('%Y-%m-%d'))]--->
+    <div class="news-splitter">|</div>
+    <!---[byronexec
+for tag in byron_render_vars.get("newsdata")[1].split(";;"):
+    append_html(f"<div class=\"news-tag\" style=\"--tag-color: {tag.split('//')[1]};\">{tag.split('//')[0]}</div>")
+]---></small>
+    <h1><!---[byronexec append_html(byron_render_vars.get("newsdata")[2])]---></h1>
+    <h3><!---[byronexec append_html(byron_render_vars.get("newsdata")[3])]---></h3>
+</a>

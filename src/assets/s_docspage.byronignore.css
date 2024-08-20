@@ -1,0 +1,11 @@
+.docs-root {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100vh;
+}
+
+.mainpage {
+    padding: 32px;
+    padding-top: 50px;
+}

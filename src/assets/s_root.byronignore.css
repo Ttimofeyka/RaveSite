@@ -1,0 +1,40 @@
+html, body {
+    padding: 0;
+    margin: 0;
+    font-family: liberationmono;
+}
+
+@font-face {
+    font-family: liberationmono;
+    src: url('/assets/liberationmono-regular.ttf');
+}
+
+.gpos-button {
+    border-color: #3882d2;
+    border-radius: 4px;
+    border: 1px solid;
+    width: fit-content;
+    height: fit-content;
+    padding: 8px;
+    color: #3882d2;
+    
+    background-color: transparent;
+    & a:link {
+        color: #3882d2;
+        text-decoration: none;
+    }
+    & a:visited {
+        text-decoration: none;
+        color: #3882d2;
+    }
+}
+.gpos-button:hover {
+    background-color: #3882d2;
+    border-color: #3882d2;
+    color: white;
+    text-decoration: underline;
+    & a:visited {
+        text-decoration: underline;
+        color: white;
+    }
+}

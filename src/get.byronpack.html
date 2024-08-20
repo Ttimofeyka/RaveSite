@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ravelang - Download</title>
+
+    <!-- v2 -->
+    <link href="/assets/styles_getrave.css" rel="stylesheet">
+    <link href="/assets/styles.css" rel="stylesheet">
+    <style>
+        .navbar-link:nth-child(5) {
+            /**[byronread ./src/assets/asset_activelink.byronignore.css]**/
+        }
+    </style>
+</head>
+<body>
+    <div class="getrave-root">
+        <!---[byronread ./src/navbar.byronignore.html]--->
+        <div class="mainpage">
+            <div class="getrave-binaries">
+                <h1>Download Rave binaries</h1>
+                <p>The Rave repository on GitHub has a Releases section, which hosts precompiled binaries for different platforms.</p>
+                <p>Right now, there's binaries for both Windows and Linux.</p>
+                <div class="gpos-button"><a href="https://github.com/Ttimofeyka/Rave/releases">Download</a></div>
+            </div>
+            <div class="getrave-source">
+                <h1>...or compile Rave from the source code</h1>
+                <p>For this method, you will need to build the Rave compiler from sources.</p>
+                <h2>Prerequisites:</h2>
+
+                <ul>
+                    <li>llvm-16 (you can also use any LLVM version, starting from 11 and up to 16)</li>
+                    <li>`clang` or `gcc`</li>
+                    <li>C++ compiler (with support of C++17 and higher)</li>
+                    <li>Make</li>
+                    <li>MinGW (if you need cross-compilation or you are using Windows)</li>
+                </ul>
+
+                <p>You can install these dependencies yourself, or, alternatively, use `install.sh` or `install.bat` scripts, provided in the repository.</p>
+                <p>The final step is to run `make` command, and you should have the `rave` binary built.</p>
+                <p>If you encounter any issues during the build process, feel free to report them to the issue tracker, or to ask for help in the Rave discord server or the subreddit.</p>
+                <div class="gpos-button"><a href="https://github.com/Ttimofeyka/Rave/">Get source code</a></div>
+            </div>
+        </div>
+        <!---[byronread ./src/footer.byronignore.html]--->
+    </div>
+</body>
+</html>

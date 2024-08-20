@@ -1,0 +1,132 @@
+html, body {
+    padding: 0;
+    margin: 0;
+}
+
+.mainpage {
+    padding-top: 50px;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.mainpage-topinfo {
+    background-color: darkslategray;
+    color: white;
+    display: flex;
+    flex-direction: row;
+    overflow: hidden;
+}
+
+@media (max-width: 768px) {
+    .mainpage-topinfo {
+        flex-direction: column;
+    }
+}
+
+.mainpage-topinfo-logo {
+    background-image: url('/assets/logo-bg.jpg');
+    background-size: 250%;
+    filter: blur(4px);
+    width: 250px;
+    height: 250px;
+}
+
+.mainpage-topinfo-desc {
+    margin-left: 32px;
+}
+
+.mainpage-examples {
+    background-color: #0d1117;
+    color: white;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-content: center;
+    padding: 32px;
+}
+@media (max-width: 768px) {
+    .mainpage-examples {
+        flex-direction: column;
+    }
+}
+
+.mainpage-examples-desc {
+    /*max-width: 60%;*/
+    width: 75%;
+}
+
+.codeblock {
+    margin: 16px;
+    background-color: #182028;
+    border-radius: 8px;
+    border: 1px black solid;
+    padding: 16px;
+    height: fit-content;
+    width: fit-content;
+}
+.mainpage-features {
+    background-color: #1c1c20;
+    color: white;
+    padding: 32px;
+}
+.mainpage-features-desc {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+@media (max-width: 768px) {
+    .mainpage-features-desc {
+        flex-direction: column;
+    }
+}
+
+.mainpage-features-feature-desc {
+    flex: 1 1 0px;
+    padding: 8px;
+}
+.mainpage-community {
+    background-color: #0d1117;
+    color: white;
+    padding: 32px;
+}
+.mainpage-community-inner {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+
+
+.mainpage-community-buttons {
+    display: flex;
+    flex-direction: column;
+    width: 20%;
+    margin-left: 64px;
+    margin-right: 32px;
+    & .gpos-button {
+        width: 100%;
+        margin-bottom: 8px;
+        display: flex;
+        justify-content: right;
+    }
+}
+
+@media (max-width: 768px) {
+    .mainpage-community-inner {
+        flex-direction: column;
+    }
+    .mainpage-community-buttons {
+        flex-direction: row;
+        margin: 0;
+        width: 100%;
+        & .gpos-button {
+            width: fit-content;
+            margin: 0;
+            margin-left: 4px;
+            margin-right: 4px;
+            display: inline;
+        }
+    }
+}

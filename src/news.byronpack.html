@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ravelang - News</title>
+
+    <!-- v2 -->
+    <link href="assets/styles_news.css" rel="stylesheet">
+    <link href="assets/styles.css" rel="stylesheet">
+    <style>
+        .navbar-link:nth-child(2) {
+            /**[byronread ./src/assets/asset_activelink.byronignore.css]**/
+        }
+    </style>
+</head>
+<body>
+    <div class="news-root">
+        <!---[byronread ./src/navbar.byronignore.html]--->
+        <div class="mainpage">
+            <!---[byronexec
+import os
+news = sorted(([i, open("./news/" + i).read()] for i in os.listdir("./news/")), key=lambda x: int(x[1].split("\n")[0]), reverse=True)
+os.mkdir("./build/news")
+for objnews in news:
+    append_html(process_html(open("./src/newsitem.byronignore.html").read(), {"newsdata":objnews[1].split("\n")[:-1], "newsfile": objnews[0]}))
+    open(f'./build/news/{objnews[0]}.html', "w").write(process_html(open("./src/newsfull.byronignore.html").read(), {"newsdata":objnews[1].split("\n")[:-2] + objnews[1].split("\n")[-1:], "newsfile": objnews[0]}))
+]--->
+        </div>
+        <!---[byronread ./src/footer.byronignore.html]--->
+    </div>
+</body>
+</html>

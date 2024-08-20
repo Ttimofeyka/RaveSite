@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ravelang - News</title>
+
+    <!-- v2 -->
+    <link href="/assets/styles_news.css" rel="stylesheet">
+    <link href="/assets/styles.css" rel="stylesheet">
+    <style>
+        .navbar-link:nth-child(2) {
+            /**[byronread ./src/assets/asset_activelink.byronignore.css]**/
+        }
+        .mainpage-inner {
+            padding: 32px;
+            color: white;
+            & .gpos-button {
+                margin-bottom: 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="news-root">
+        <!---[byronread ./src/navbar.byronignore.html]--->
+        <div class="mainpage">
+            <div class="mainpage-inner">
+                <div class="gpos-button"><a href="/news.html">Go back</a></div>
+                <small class="news-time-n-tags"><!---[byronexec 
+from datetime import datetime
+append_html(datetime.utcfromtimestamp(int(byron_render_vars.get("newsdata")[0])).strftime('%Y-%m-%d'))]--->
+                <div class="news-splitter">|</div>
+                <!---[byronexec
+for tag in byron_render_vars.get("newsdata")[1].split(";;"):
+    append_html(f"<div class=\"news-tag\" style=\"--tag-color: {tag.split('//')[1]};\">{tag.split('//')[0]}</div>")
+            ]---></small>
+                <h1><!---[byronexec append_html(byron_render_vars.get("newsdata")[2])]---></h1>
+                <h3><!---[byronexec append_html(byron_render_vars.get("newsdata")[3])]---></h3>
+            </div>
+        </div>
+        <!---[byronread ./src/footer.byronignore.html]--->
+    </div>
+</body>
+</html>

@@ -1,25 +1,25 @@
-<!-- Byronpack v3.0.0.2 -- bundle from ./src//news.byronpack.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ravelang - News</title>
-    <!-- File: byronread ./src/embed.byronignore.html -->
-<meta content="The Rave Programming Language" property="og:title" />
-<meta content="A multipurpose modern programming language." property="og:description" />
-<meta content="https://ravelang.xyz/" property="og:url" />
-<meta content="https://ravelang.xyz/assets/ravelogo.png" property="og:image" />
-<meta content="#355E3B" data-react-helmet="true" name="theme-color" />
 
     <!-- v2 -->
-    <link href="assets/styles_news.css" rel="stylesheet">
-    <link href="assets/styles.css" rel="stylesheet">
+    <link href="/assets/styles_news.css" rel="stylesheet">
+    <link href="/assets/styles.css" rel="stylesheet">
     <style>
         .navbar-link:nth-child(2) {
             /* File: byronread ./src/assets/asset_activelink.byronignore.css */
 background-color: #04AA6D;
 color: white;
+        }
+        .mainpage-inner {
+            padding: 32px;
+            color: white;
+            & .gpos-button {
+                margin-bottom: 8px;
+            }
         }
     </style>
 </head>
@@ -37,28 +37,18 @@ color: white;
     </div>
 </div>
         <div class="mainpage">
-            <!-- Generated with `byronexec` -->
-<a class="news-itembox" href="/news/rave-opaque-pointers.html">
-    <small class="news-time-n-tags"><!-- Generated with `byronexec` -->
+            <div class="mainpage-inner">
+                <div class="gpos-button"><a href="/news.html">Go back</a></div>
+                <small class="news-time-n-tags"><!-- Generated with `byronexec` -->
 2024-08-27
-    <div class="news-splitter">|</div>
-    <!-- Generated with `byronexec` -->
+                <div class="news-splitter">|</div>
+                <!-- Generated with `byronexec` -->
 <div class="news-tag" style="--tag-color: blue;">Language</div><div class="news-tag" style="--tag-color: red;">Infrastructure</div></small>
-    <h1><!-- Generated with `byronexec` -->
+                <h1><!-- Generated with `byronexec` -->
 Increasing requirements to LLVM 14 and higher</h1>
-    <h3><!-- Generated with `byronexec` -->
-The transition to opaque pointers has been made.</h3>
-</a><a class="news-itembox" href="/news/website-redesign.html">
-    <small class="news-time-n-tags"><!-- Generated with `byronexec` -->
-2024-08-20
-    <div class="news-splitter">|</div>
-    <!-- Generated with `byronexec` -->
-<div class="news-tag" style="--tag-color: blue;">Website</div><div class="news-tag" style="--tag-color: red;">Design</div></small>
-    <h1><!-- Generated with `byronexec` -->
-The Rave Programming Language website redesign</h1>
-    <h3><!-- Generated with `byronexec` -->
-The website of the Rave programming language was redesigned for more modern and appealing look.</h3>
-</a>
+                <h3><!-- Generated with `byronexec` -->
+The transition from typed to opaque pointers was made as part of the LLVM update.<br>Now the working versions of LLVM are from 14 to 18 inclusive.</h3>
+            </div>
         </div>
         <!-- File: byronread ./src/footer.byronignore.html -->
 <footer class="footer-container">

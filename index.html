@@ -1,119 +1,401 @@
-<!-- Byronpack v3.0.0.1 -- bundle from ./src//index.byronpack.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Rave Programming Language</title>
-
-    <!-- v2 -->
-    <link href="assets/styles_main.css" rel="stylesheet">
-    <link href="assets/styles.css" rel="stylesheet">
+    <title>Rave Programming Language</title>
+	<link rel="icon" type="image/x-icon" href="images/favicon.ico">
+	<meta content="Rave Programming Language" property="og:title" />
+	<meta content="High-performance multipurpose programming language" property="og:description" />
+	<meta content="https://ravelang.xyz/" property="og:url" />
+	<meta content="https://ravelang.xyz/images/ravelogo.png" property="og:image" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        .navbar-link:nth-child(1) {
-            /* File: byronread ./src/assets/asset_activelink.byronignore.css */
-background-color: #04AA6D;
-color: white;
+        :root {
+            --primary: #2962ff;
+            --secondary: #1565c0;
+            --background: #0a192f;
+            --surface: #172a45;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--background);
+            color: #e6f1ff;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            text-align: center;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 90vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 120px 0 60px;
+            position: relative;
+        }
+
+        .logo {
+            animation: float 3s ease-in-out infinite;
+            width: 180px;
+            margin-bottom: 40px;
+            filter: drop-shadow(0 0 30px rgba(41, 98, 255, 0.3));
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 18px 0;
+            backdrop-filter: blur(12px);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        nav .container {
+            display: flex;
+            justify-content: flex-end;
+            gap: 30px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+            padding: 8px 16px;
+            border-radius: 8px;
+        }
+
+        nav a:hover {
+            background: rgba(41, 98, 255, 0.1);
+        }
+
+        /* Sections */
+        section {
+            padding: 100px 0;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: 1s all ease-in-out;
+        }
+
+        section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        h1 {
+            font-size: 3.8rem;
+            margin-bottom: 30px;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1.2;
+        }
+
+        h2 {
+            font-size: 2.8rem;
+            margin-bottom: 50px;
+            color: var(--primary);
+            position: relative;
+            display: inline-block;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: var(--primary);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .feature-card {
+            background: var(--surface);
+            padding: 40px 30px;
+            border-radius: 16px;
+            border: 1px solid rgba(41, 98, 255, 0.2);
+            transition: 0.4s all;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(41, 98, 255, 0.1);
+        }
+
+        .code-block {
+            background: var(--surface);
+            padding: 25px;
+            border-radius: 12px;
+            font-family: monospace;
+            margin: 30px auto;
+            max-width: 600px;
+            text-align: left;
+            border: 1px solid rgba(41, 98, 255, 0.2);
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            padding: 14px 32px;
+            background: var(--primary);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            margin-top: 30px;
+            transition: 0.3s;
+            font-weight: 500;
+            gap: 8px;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 20px rgba(41, 98, 255, 0.3);
+        }
+
+        .additional-info {
+            max-width: 800px;
+            margin: 40px auto;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .highlight {
+            color: var(--primary);
+            font-weight: 500;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 15px;
+            }
+
+            nav .container {
+                justify-content: center;
+                gap: 15px;
+                padding: 12px 0;
+            }
+
+            nav a {
+                padding: 12px 16px;
+                font-size: 0.9rem;
+            }
+
+            h1 {
+                font-size: 2.4rem;
+                margin-bottom: 20px;
+            }
+
+            h2 {
+                font-size: 1.8rem;
+                margin-bottom: 40px;
+            }
+
+            .hero {
+                min-height: 80vh;
+                padding: 100px 0 40px;
+            }
+
+            .logo {
+                width: 120px;
+                margin-bottom: 30px;
+            }
+
+            .features-grid {
+                gap: 20px;
+            }
+
+            .feature-card {
+                padding: 25px 20px;
+            }
+
+            .btn {
+                padding: 16px 28px;
+                font-size: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 2rem;
+            }
+
+            h2 {
+                font-size: 1.6rem;
+            }
+
+            nav .container {
+                gap: 10px;
+            }
+
+            nav a {
+                padding: 10px 12px;
+            }
+
+            .hero {
+                min-height: 75vh;
+            }
+
+            .code-block {
+                padding: 15px;
+                font-size: 0.9rem;
+                max-width: 100%;
+                overflow-x: auto;
+            }
+        }
+		
+		.license {
+            text-align: center;
+            padding: 40px 0;
+            color: #89b4fa;
+            font-size: 0.9em;
+            border-top: 1px solid rgba(41, 98, 255, 0.2);
+            margin-top: 60px;
         }
     </style>
 </head>
 <body>
-    <!-- File: byronread ./src/navbar.byronignore.html -->
-<div class="navbar">
-    <a class="navbar-home"><img height="50" src="/assets/ravelogo.png"> Rave</a>
-    <div class="navbar-sections" style="padding-top:14px;">
-        <a class="navbar-link" href="/">Home</a>
-        <a class="navbar-link" href="/news.html">News</a>
-        <a class="navbar-link" href="/docs/docview.html">Documentation</a>
-        <a class="navbar-link" href="/#community">Community</a>
-        <a class="navbar-link" href="/get.html">Get Rave</a>
+    <nav>
+        <div class="container">
+            <a href="https://github.com/Ttimofeyka/Rave" target="_blank">GitHub</a>
+            <a href="https://github.com/Ttimofeyka/Rave/tree/main/specifications" target="_blank">Documentation</a>
+            <a href="https://discord.gg/rJDKMuZ2T8" target="_blank">Community</a>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <img src="https://github.com/Ttimofeyka/RaveSite/blob/main/images/ravelogo.png?raw=true" alt="Rave Logo" class="logo">
+        <div class="container">
+            <h1>Rave Programming Language</h1>
+            <p class="additional-info">High-performance multipurpose programming language combining power with simplicity</p>
+            <a href="https://github.com/Ttimofeyka/Rave" class="btn" target="_blank">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-github"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+                View on GitHub
+            </a>
+        </div>
+    </section>
+
+    <section id="features">
+        <div class="container">
+            <h2>Why Choose Rave?</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <h3>🚀 Blazing Fast</h3>
+                    <p>Fast compilation combined with fast inference of output programs</p>
+                </div>
+                <div class="feature-card">
+                    <h3>🔧 Cross-Platform</h3>
+                    <p>Target Windows, Linux, macOS, and embedded systems with single codebase</p>
+                </div>
+                <div class="feature-card">
+                    <h3>⚙️ LLVM Backend</h3>
+                    <p>Advanced optimizations powered by LLVM for maximum performance</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="example">
+        <div class="container">
+            <h2>Getting Started</h2>
+            <div class="additional-info">
+                <p>"Hello, world!" program:</p>
+                <pre class="code-block"><code><a style="color: #ff5931;">import</a> &lt;std/io&gt;
+<a style="color: #6e6eff;">void</a> main => std::println(<a style="color: #d37e26;">"Hello, world!"</a>);</code></pre>
+            </div>
+        </div>
+    </section>
+
+    <section id="features">
+        <div class="container">
+            <h2>Key Features</h2>
+            <div class="additional-info">
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <h3>🔧 Manual Memory Management</h3>
+                        <p>Full control over memory management allows to optimize your tasks the way you can</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>🧩 Modern Syntax</h3>
+                        <p>Modern operator overloading and type inference with C-like familiarity</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>🎯 Simplicity</h3>
+                        <p>Minimal language complexity with focus on explicit yet comfortable control</p>
+                    </div>
+					<div class="feature-card">
+                        <h3>🤝 Open Source</h3>
+                        <p>You can contribute to Rave, whether through sponsorship or development assistance.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+	
+	<div class="license">
+        <div class="container">
+            Released under <a href="http://mozilla.org/MPL/2.0/" target="_blank">Mozilla Public License 2.0</a>
+        </div>
     </div>
-</div>
-    <div class="mainpage">
-        <div class="mainpage-topinfo">
-            <div class="mainpage-topinfo-logo">
+
+    <script>
+        // Enhanced intersection observer
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if(entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.15 });
+
+        document.querySelectorAll('section').forEach(section => {
+            observer.observe(section);
+        });
+
+        // Smooth scroll with offset
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                const offset = 80;
+                const position = target.getBoundingClientRect().top + window.pageYOffset - offset;
                 
-            </div>
-            <img style="position: absolute; " height="250" src="assets/ravelogo.png">
-            <div class="mainpage-topinfo-desc">
-                <h1>The Rave Programming Language</h1>
-                <h3>A multipurpose modern programming language.</h3>
-            </div>
-        </div>
-        <div class="mainpage-examples">
-            <code class="codeblock">
-<code class="highlight-import">import</code> &lt;std/io&gt;<br>
-<code class="highlight-type">void</code> main => std::println(<code class="highlight-string">"Hello, world!"</code>);
-            </code>
-            <div class="mainpage-examples-desc">
-                <h1>It's that simple.</h1>
-                <h3>This is the "Hello, world!" program in Rave. Abstraction and syntax features allow Rave to be this minimal.</h3>
-                <div style="display: flex; flex-direction: row;">
-                    <div class="gpos-button" style="margin-right: 16px;"><a href="/docs/docview.html">Read the docs</a></div>
-                    <div class="gpos-button"><a href="https://github.com/Ttimofeyka/Rave/tree/main/examples">See more examples</a></div>
-                </div>
-            </div>
-        </div>
-        <div class="mainpage-features">
-            <h1>Prominent Rave features</h1>
-            <div class="mainpage-features-desc">
-                <div class="mainpage-features-feature-desc">
-                    <h2>Speed</h2>
-                    <p>Since the beginning of its creation, Rave has been focusing on the performance of programs written on it. Thanks to the various flags, you can easily reach the speed of the same program in C++, or even surpass it.</p>
-                </div>
-                <div class="mainpage-features-feature-desc">
-                    <h2>Safety</h2>
-                    <p>Rave is not completely memory-safe, but there are a lot of language features, such as SafePtr, that help programmers write safe code.</p>
-                </div>
-                <div class="mainpage-features-feature-desc">
-                    <h2>Compile-time</h2>
-                    <p>Rave does not have a built-in preprocessor, like in C - instead, a compile-time system is used, which expands the capabilities of the language.</p>
-                </div>
-                <div class="mainpage-features-feature-desc">
-                    <h2>OOP</h2>
-                    <p>Rave has no classes, but it has structures that can be inherited, have methods, and so on.</p>
-                </div>
-            </div>
-        </div>
-        <div class="mainpage-community" id="community">
-            <h1>Rave Community</h1>
-            <div class="mainpage-community-inner">
-                <div>
-                    <h2>Rave is FOSS</h2>
-                    <p>Rave is free and open source - licensed under MPL v2. It is developed by the community, and you can participate too! Feel free to open issues if you find any, or make pull requests to fix any issue.</p>
-                </div>
-                <div class="mainpage-community-buttons">
-                    <div class="gpos-button"><a href="https://github.com/Ttimofeyka/Rave">GitHub</a></div>
-                    <div class="gpos-button"><a href="https://reddit.com/r/ravelang">Reddit</a></div>
-                    <div class="gpos-button"><a href="https://discord.gg/AfEtyArvsM">Discord</a></div>
-                </div>
-            </div>
-        </div>
-        <!-- File: byronread ./src/footer.byronignore.html -->
-<footer class="footer-container">
-    <div class="footer-inner">
-        <img height="150" width="150" src="/assets/ravelogo.png">
-        <div class="footer-section-container">
-            <div class="footer-section">
-                <h2>Resources</h2>
-                <a href="/docs/docview.html">Docs</a>
-                <a href="/news.html">News</a>
-            </div>
-            <div class="footer-section">
-                <h2>Community</h2>
-                <a href="https://github.com/Ttimofeyka/Rave">GitHub</a>
-                <a href="https://discord.gg/AfEtyArvsM">Discord</a>
-                <a href="https://reddit.com/r/ravelang">Reddit</a>
-            </div>
-            <div class="footer-section">
-                <h2>Contribute</h2>
-                <a href="https://github.com/Ttimofeyka/Rave">Source code</a>
-                <a href="https://github.com/Ttimofeyka/Rave/issues">Issues</a>
-            </div>
-        </div>
-    </div>
-    <p class="footer-copyright">© 2019–2024 Ttimofeyka | designed by <a href="https://geckonerd.pw">geckonerd</a></p>
-</footer>
-    </div>
+                window.scrollTo({
+                    top: position,
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
 </body>
 </html>

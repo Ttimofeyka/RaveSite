@@ -369,6 +369,12 @@
     </div>
 
     <script>
+        // Prevent browser from restoring scroll position
+        if('scrollRestoration' in history) history.scrollRestoration = 'manual';
+
+        // Immediately set scroll to top when page loads
+        window.addEventListener('load', function() {window.scrollTo(0, 0);});
+
         // Enhanced intersection observer
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {

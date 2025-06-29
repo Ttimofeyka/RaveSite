@@ -53,16 +53,41 @@
         </div>
     </section>
 
-    <section id="example">
-        <div class="container">
-            <h2>Getting Started</h2>
-            <div class="additional-info">
-                <p>"Hello, world!" program:</p>
-                <pre class="code-block"><code><a style="color: #ff5931;">import</a> &lt;std/io&gt;
+<section id="example">
+    <div class="container">
+        <h2>Getting Started</h2>
+        <div class="additional-info">
+            <p>Select an example:</p>
+            
+            <!-- Example selector dropdown -->
+            <select id="example-select" class="example-select">
+                <option value="hello">Hello, world!</option>
+                <option value="array">JSON</option>
+            </select>
+            
+            <!-- Container for examples -->
+            <div id="example-code-container">
+                <!-- Hello World Example (default visible) -->
+                <div id="hello-example" class="code-example active">
+                    <pre class="code-block"><code><a style="color: #ff5931;">import</a> &lt;std/io>
 <a style="color: #6e6eff;">void</a> main => std::println(<a style="color: #d37e26;">"Hello, world!"</a>);</code></pre>
+                </div>
+                
+                <!-- JSON Example -->
+                <div id="array-example" class="code-example">
+                    <pre class="code-block"><code><a style="color: #ff5931;">import</a> &lt;std/io> &lt;std/json>
+
+<a style="color: #6e6eff;">void</a> main {
+    <a style="color: #6e6eff;">auto</a> json = std::json::parse(<a style="color: #d37e26;">"{\"name\": \"Alex\"}"</a>);
+    <a style="color: #ff5931;">defer</a> ~json;
+
+    std::println(json.get(<a style="color: #d37e26;">"name"</a>).as&lt;<a style="color: #6e6eff;">char*</a>>());
+}</code></pre>
+                </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
     <section id="features">
         <div class="container">
@@ -129,7 +154,19 @@
                     behavior: 'smooth'
                 });
             });
+    });
+    
+    // Example selector functionality
+    document.getElementById('example-select').addEventListener('change', function() {
+        // Hide all examples
+        document.querySelectorAll('.code-example').forEach(el => {
+            el.classList.remove('active');
         });
-    </script>
+        
+        // Show selected example
+        const selectedExample = this.value + '-example';
+        document.getElementById(selectedExample).classList.add('active');
+    });
+</script>
 </body>
 </html>

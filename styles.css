@@ -7,6 +7,44 @@
     --accent: #ff6f61;
 }
 
+/* Example selector styles */
+.example-select {
+    width: 100%;
+    max-width: 400px;
+    padding: 12px 16px;
+    margin: 20px 0;
+    border-radius: 8px;
+    background: var(--surface);
+    color: var(--text);
+    border: 1px solid rgba(41, 98, 255, 0.2);
+    font-size: 1rem;
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%232962ff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    background-size: 1em;
+}
+
+.example-select:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(41, 98, 255, 0.2);
+}
+
+.code-example {
+    display: none;
+}
+
+.code-example.active {
+    display: block;
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
 * {
     margin: 0;
     padding: 0;

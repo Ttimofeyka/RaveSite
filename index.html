@@ -62,6 +62,7 @@
             <!-- Example selector dropdown -->
             <select id="example-select" class="example-select">
                 <option value="hello">Hello, world!</option>
+                <option value="io">Working with files</option>
                 <option value="array">JSON</option>
             </select>
             
@@ -71,6 +72,28 @@
                 <div id="hello-example" class="code-example active">
                     <pre class="code-block"><code><a style="color: #ff5931;">import</a> &lt;std/io>
 <a style="color: #6e6eff;">void</a> main => std::println(<a style="color: #d37e26;">"Hello, world!"</a>);</code></pre>
+                </div>
+
+                <!-- IO Example -->
+                <div id="io-example" class="code-example">
+                    <pre class="code-block"><code><a style="color: #ff5931;">import</a> &lt;std/io>
+
+<a style="color: #6e6eff;">void</a> main {
+    std::file foo = std::file(<a style="color: #d37e26;">"test.txt"</a>);
+    <a style="color: #ff5931;">defer</a> ~foo;
+
+    foo.open(<a style="color: #d37e26;">"w"</a>);
+        std::fprintln(&foo, <a style="color: #d37e26;">"Rave"</a>);
+    foo.close();
+
+    <a style="color: #6e6eff;">char</a>[4] buffer;
+
+    foo.open(<a style="color: #d37e26;">"r"</a>);
+        foo.read(&buffer, 4);
+    foo.close();
+
+    std::println(buffer[0], buffer[1], buffer[2], buffer[3]);
+}</code></pre>
                 </div>
                 
                 <!-- JSON Example -->
@@ -154,19 +177,19 @@
                     behavior: 'smooth'
                 });
             });
-    });
-    
-    // Example selector functionality
-    document.getElementById('example-select').addEventListener('change', function() {
-        // Hide all examples
-        document.querySelectorAll('.code-example').forEach(el => {
-            el.classList.remove('active');
         });
-        
-        // Show selected example
-        const selectedExample = this.value + '-example';
-        document.getElementById(selectedExample).classList.add('active');
-    });
+
+        // Example selector functionality
+        document.getElementById('example-select').addEventListener('change', function() {
+            // Hide all examples
+            document.querySelectorAll('.code-example').forEach(el => {
+                el.classList.remove('active');
+            });
+
+            // Show selected example
+            const selectedExample = this.value + '-example';
+            document.getElementById(selectedExample).classList.add('active');
+        });
 </script>
 </body>
 </html>

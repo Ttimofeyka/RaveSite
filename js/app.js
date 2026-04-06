@@ -3,8 +3,29 @@ import van from "./van-1.6.0.min.js"
 const {
     nav, div, a, section, img, h1, h2, h3, p,
     button, pre, code, svg, path,
-    span, footer
+    span, footer, i
 } = van.tags
+
+const ThemeToggle = () => {
+    const theme = van.state(document.documentElement.getAttribute('data-theme') || 'light')
+    
+    const toggleTheme = () => {
+        const newTheme = theme.val === 'light' ? 'dark' : 'light'
+        theme.val = newTheme
+        document.documentElement.setAttribute('data-theme', newTheme)
+        localStorage.setItem('theme', newTheme)
+    }
+    
+    return button({
+        class: "theme-toggle",
+        onclick: toggleTheme,
+        "aria-label": "Toggle theme"
+    },
+        i({
+            class: van.derive(() => theme.val === 'dark' ? 'bi bi-sun-fill' : 'bi bi-moon-fill')
+        })
+    )
+}
 
 const Navigation = () => {
     const menuOpen = van.state(false)
@@ -12,14 +33,15 @@ const Navigation = () => {
     return nav(
         div({ class: "container" },
             a({ href: "#", class: "logo-nav" },
-                img({ src: "./images/ravelogo.png", alt: "Rave" }),
+                img({ src: "./images/ravelogo.png", alt: "Rave", loading: "eager" }),
                 "Rave"
             ),
             div({ class: "nav-links" },
                 a({ href: "#installation", class: "nav-link" }, "Installation"),
                 a({ href: "https://github.com/Ttimofeyka/Rave", target: "_blank", class: "nav-link" }, "GitHub"),
                 a({ href: "https://github.com/Ttimofeyka/Rave/tree/main/specifications", target: "_blank", class: "nav-link" }, "Docs"),
-                a({ href: "#benchmarks", class: "nav-link" }, "Benchmarks")
+                a({ href: "#benchmarks", class: "nav-link" }, "Benchmarks"),
+                ThemeToggle()
             ),
             button({
                 class: "hamburger",
@@ -31,7 +53,8 @@ const Navigation = () => {
                 a({ href: "#installation" }, "Installation"),
                 a({ href: "https://github.com/Ttimofeyka/Rave", target: "_blank" }, "GitHub"),
                 a({ href: "https://github.com/Ttimofeyka/Rave/tree/main/specifications", target: "_blank" }, "Docs"),
-                a({ href: "#benchmarks" }, "Benchmarks")
+                a({ href: "#benchmarks" }, "Benchmarks"),
+                ThemeToggle()
             )
         )
     )
@@ -41,7 +64,8 @@ const Hero = () => section({ class: "hero" },
     img({
         src: "./images/ravelogo.png",
         alt: "Rave Logo",
-        class: "logo"
+        class: "logo",
+        loading: "eager"
     }),
     h1("Rave Programming Language"),
     p({ class: "tagline" }, "High-performance compiled language with modern syntax, LLVM backend, and manual memory management"),
@@ -97,7 +121,7 @@ const StepCard = (step, index) => {
         div({ class: "code-block" },
             pre(code(step.code))
         ),
-        step.note ? p({ style: "color: #5f5f5d; font-size: 12px; margin-top: 8px;" }, step.note) : ""
+        step.note ? p({ class: "note-text-small", style: "margin-top: 8px;" }, step.note) : ""
     )
 }
 
@@ -126,13 +150,13 @@ const DownloadReleaseSection = () => {
                         class: "btn btn-primary",
                         style: "margin-top: 12px; display: inline-flex;"
                     }, "Go to Releases Page"),
-                    p({ style: "margin-top: 12px; color: #5f5f5d; font-size: 14px;" },
+                    p({ class: "note-text", style: "margin-top: 12px;" },
                         "Download the appropriate archive for your platform"
                     )
                 ),
                 div({ class: "benchmark-card" },
                     h3({ class: "benchmark-name" }, "Step 2: Extract"),
-                    p({ style: "color: #5f5f5d; font-size: 14px;" }, "Unpack the downloaded archive to your desired location")
+                    p({ class: "note-text" }, "Unpack the downloaded archive to your desired location")
                 ),
                 div({ class: "benchmark-card" },
                     h3({ class: "benchmark-name" }, "Step 3: Run"),
@@ -149,9 +173,9 @@ const DownloadReleaseSection = () => {
                     }, downloadInstructions[key].title)
                 )
             ),
-            p({ style: "color: #5f5f5d; font-size: 14px; margin-top: 24px;" },
-                "Requirement: C compiler (for linking)"
-            )
+p({ class: "note-text", style: "margin-top: 24px;" },
+                        "Requirement: C compiler (for linking)"
+                    )
         )
     )
 }
@@ -240,7 +264,7 @@ const InstallationSection = () => {
                     )
                 ),
                 ...Object.keys(buildInstructions).map(key => BuildInstructionSteps(key)),
-                p({ style: "color: #5f5f5d; font-size: 14px; margin-top: 24px;" },
+                p({ class: "note-text", style: "margin-top: 24px;" },
                     "Prerequisites: Git, LLVM, Make, C++ compiler"
                 )
             ),
@@ -259,12 +283,12 @@ const WhyChooseSection = () => section({ id: "features" },
         h2("Why Choose Rave?"),
         p({ class: "section-subtitle" }, "A modern programming language designed for performance, simplicity, and cross-platform development"),
         div({ class: "features-grid" },
-            FeatureCard("⚡", "Blazing Fast", "Fast compilation times with LLVM-powered optimizations for maximum runtime performance"),
-            FeatureCard("🌐", "Cross-Platform", "Compile for Windows, Linux, macOS, and embedded systems from a single codebase"),
-            FeatureCard("🔧", "LLVM Backend", "Industry-standard compiler infrastructure enabling advanced optimizations and multiple targets"),
-            FeatureCard("🧠", "Manual Memory", "Full control over memory allocation with defer statements for safe cleanup"),
-            FeatureCard("✨", "Modern Syntax", "Clean, expressive syntax with type inference, operator overloading, and familiar C-like constructs"),
-            FeatureCard("🔓", "Open Source", "MPL 2.0 licensed - contribute, modify, and use freely for any project")
+            FeatureCard(i({ class: "bi bi-lightning-charge-fill" }), "Blazing Fast", "Fast compilation times with LLVM-powered optimizations for maximum runtime performance"),
+            FeatureCard(i({ class: "bi bi-globe2" }), "Cross-Platform", "Compile for Windows, Linux, macOS, and embedded systems from a single codebase"),
+            FeatureCard(i({ class: "bi bi-tools" }), "LLVM Backend", "Industry-standard compiler infrastructure enabling advanced optimizations and multiple targets"),
+            FeatureCard(i({ class: "bi bi-cpu-fill" }), "Manual Memory", "Full control over memory allocation with defer statements for safe cleanup"),
+            FeatureCard(i({ class: "bi bi-stars" }), "Modern Syntax", "Clean, expressive syntax with type inference, operator overloading, and familiar C-like constructs"),
+            FeatureCard(i({ class: "bi bi-unlock-fill" }), "Open Source", "MPL 2.0 licensed - contribute, modify, and use freely for any project")
         )
     )
 )
@@ -462,35 +486,35 @@ const FeaturesListSection = () => section({ id: "features-list" },
         h2("Language Features"),
         div({ class: "features-list" },
             div({ class: "feature-item" },
-                div({ class: "check" }, "✓"),
+                div({ class: "check" }, i({ class: "bi bi-check-lg" })),
                 p("Static typing with type inference")
             ),
             div({ class: "feature-item" },
-                div({ class: "check" }, "✓"),
+                div({ class: "check" }, i({ class: "bi bi-check-lg" })),
                 p("Operator overloading")
             ),
             div({ class: "feature-item" },
-                div({ class: "check" }, "✓"),
-                p("SIMD vector operations")
+                div({ class: "check" }, i({ class: "bi bi-check-lg" })),
+                p("SIMD Vector operations")
             ),
             div({ class: "feature-item" },
-                div({ class: "check" }, "✓"),
+                div({ class: "check" }, i({ class: "bi bi-check-lg" })),
                 p("Built-in JSON parsing")
             ),
             div({ class: "feature-item" },
-                div({ class: "check" }, "✓"),
+                div({ class: "check" }, i({ class: "bi bi-check-lg" })),
                 p("HTTP client/server support")
             ),
             div({ class: "feature-item" },
-                div({ class: "check" }, "✓"),
+                div({ class: "check" }, i({ class: "bi bi-check-lg" })),
                 p("Multithreading support")
             ),
             div({ class: "feature-item" },
-                div({ class: "check" }, "✓"),
+                div({ class: "check" }, i({ class: "bi bi-check-lg" })),
                 p("Cross-compilation")
             ),
             div({ class: "feature-item" },
-                div({ class: "check" }, "✓"),
+                div({ class: "check" }, i({ class: "bi bi-check-lg" })),
                 p("defer statement for cleanup")
             )
         )
@@ -508,7 +532,7 @@ const Footer = () => footer({ class: "footer" },
         ),
         p({ class: "footer-copy" },
             "Released under ",
-            a({ href: "http://mozilla.org/MPL/2.0/", target: "_blank", style: "color: #1c1c1c; text-decoration: underline;" }, "Mozilla Public License 2.0")
+            a({ href: "http://mozilla.org/MPL/2.0/", target: "_blank", style: "text-decoration: underline;" }, "Mozilla Public License 2.0")
         )
     )
 )

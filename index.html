@@ -9,7 +9,21 @@
     <meta content="High-performance multipurpose programming language" property="og:description" />
     <meta content="https://ravelang.xyz/" property="og:url" />
     <meta content="https://ravelang.xyz/images/ravelogo.png" property="og:image" />
-    <link rel="stylesheet" href="./styles.css">
+    
+    <link rel="preload" href="images/ravelogo.png" as="image">
+    <link rel="preload" href="fonts/bootstrap-icons.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="css/bootstrap-icons.min.css">
+    
+    <script>
+      (function() {
+        const saved = localStorage.getItem('theme');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const theme = saved || (prefersDark ? 'dark' : 'light');
+        document.documentElement.setAttribute('data-theme', theme);
+      })();
+    </script>
+    
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <script type="module" src="./js/app.js"></script>

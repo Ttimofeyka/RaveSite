@@ -125,6 +125,53 @@ const StepCard = (step, index) => {
     )
 }
 
+const TerminalBlock = (commands, platform) => {
+    const copied = van.state(false)
+    const prompt = platform === "windows" ? ">" : "$"
+    
+    const copyToClipboard = async () => {
+        const text = commands.map(c => c.cmd).join("\n")
+        try {
+            await navigator.clipboard.writeText(text)
+            copied.val = true
+            setTimeout(() => { copied.val = false }, 2000)
+        } catch (e) {
+            console.error("Failed to copy", e)
+        }
+    }
+    
+    return div({ class: "terminal" },
+        div({ class: "terminal-header" },
+            div({ class: "terminal-header-left" },
+                div({ class: "terminal-dots" },
+                    span({ class: "terminal-dot red" }),
+                    span({ class: "terminal-dot yellow" }),
+                    span({ class: "terminal-dot green" })
+                ),
+                span({ class: "terminal-title" }, `${platform === "windows" ? "PowerShell" : "Terminal"} — Build Commands`)
+            ),
+            button({
+                class: van.derive(() => copied.val ? "copy-btn copied" : "copy-btn"),
+                onclick: copyToClipboard,
+                "aria-label": "Copy commands to clipboard"
+            },
+                van.derive(() => copied.val ? "✓ Copied!" : "Copy")
+            )
+        ),
+        div({ class: "terminal-body" },
+            ...commands.map(cmd =>
+                div({ class: "terminal-line" },
+                    span({ class: "terminal-prompt" }, prompt),
+                    span({ class: "terminal-command" },
+                        cmd.cmd,
+                        cmd.comment ? span({ class: "terminal-comment" }, `  # ${cmd.comment}`) : ""
+                    )
+                )
+            )
+        )
+    )
+}
+
 const DownloadReleaseSection = () => {
     const downloadPlatform = van.state("linux")
     
@@ -187,55 +234,23 @@ const InstallationSection = () => {
     const buildInstructions = {
         linux: {
             title: "Linux",
-            steps: [
-                {
-                    label: "Clone Repository",
-                    code: "git clone https://github.com/Ttimofeyka/Rave.git"
-                },
-                {
-                    label: "Install Requirements",
-                    code: "cd Rave && bash install.sh"
-                },
-                {
-                    label: "Build Compiler",
-                    code: "make -j4"
-                },
-                {
-                    label: "Test Installation",
-                    code: "./rave --version"
-                }
+            commands: [
+                { cmd: "git clone https://github.com/Ttimofeyka/Rave.git" },
+                { cmd: "cd Rave && bash install.sh" },
+                { cmd: "make -j4" },
+                { cmd: "./rave --version", comment: "Verify installation" }
             ]
         },
         windows: {
             title: "Windows",
-            steps: [
-                {
-                    label: "Clone Repository",
-                    code: "git clone https://github.com/Ttimofeyka/Rave.git"
-                },
-                {
-                    label: "Install Requirements",
-                    code: "cd Rave && install",
-                    tooltip: "Requires Chocolatey for automatic installation. Manual alternative: Install LLVM, Make, C++ and C compilers."
-                },
-                {
-                    label: "Build Compiler",
-                    code: "make -j4"
-                },
-                {
-                    label: "Test Installation",
-                    code: "rave --version"
-                }
+            commands: [
+                { cmd: "git clone https://github.com/Ttimofeyka/Rave.git" },
+                { cmd: "cd Rave && install", comment: "Requires Chocolatey" },
+                { cmd: "make -j4" },
+                { cmd: "rave --version", comment: "Verify installation" }
             ]
         }
     }
-    
-    const BuildInstructionSteps = (platformKey) => div({
-        class: van.derive(() => selectedPlatform.val === platformKey && installMethod.val === "build" ? "features-grid" : "features-grid hidden"),
-        style: van.derive(() => selectedPlatform.val === platformKey && installMethod.val === "build" ? "" : "display: none;")
-    },
-        ...buildInstructions[platformKey].steps.map((step, index) => StepCard(step, index))
-    )
     
     return section({ id: "installation" },
         div({ class: "container" },
@@ -263,7 +278,18 @@ const InstallationSection = () => {
                         }, buildInstructions[key].title)
                     )
                 ),
-                ...Object.keys(buildInstructions).map(key => BuildInstructionSteps(key)),
+                div({
+                    class: van.derive(() => selectedPlatform.val === "linux" ? "" : "hidden"),
+                    style: van.derive(() => selectedPlatform.val === "linux" ? "" : "display: none;")
+                },
+                    TerminalBlock(buildInstructions.linux.commands, "linux")
+                ),
+                div({
+                    class: van.derive(() => selectedPlatform.val === "windows" ? "" : "hidden"),
+                    style: van.derive(() => selectedPlatform.val === "windows" ? "" : "display: none;")
+                },
+                    TerminalBlock(buildInstructions.windows.commands, "windows")
+                ),
                 p({ class: "note-text", style: "margin-top: 24px;" },
                     "Prerequisites: Git, LLVM, Make, C++ compiler"
                 )

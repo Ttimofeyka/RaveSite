@@ -2,27 +2,41 @@ import van from "./van-1.6.0.min.js"
 
 const {
     nav, div, a, section, img, h1, h2, h3, p,
-    button, pre, code, select, option, svg, path,
-    span, strong, footer
+    button, pre, code, svg, path,
+    span, footer
 } = van.tags
 
-// Navigation Component
-const Navigation = () => nav(
-    div({ class: "container" },
-        a({ href: "#", class: "logo-nav" },
-            img({ src: "./images/ravelogo.png", alt: "Rave" }),
-            "Rave"
-        ),
-        div({ class: "nav-links" },
-            a({ href: "https://github.com/Ttimofeyka/Rave", target: "_blank" }, "GitHub"),
-            a({ href: "https://github.com/Ttimofeyka/Rave/tree/main/specifications", target: "_blank" }, "Docs"),
-            a({ href: "#benchmarks" }, "Benchmarks"),
-            a({ href: "https://discord.gg/AfEtyArvsM", target: "_blank" }, "Discord")
+const Navigation = () => {
+    const menuOpen = van.state(false)
+    
+    return nav(
+        div({ class: "container" },
+            a({ href: "#", class: "logo-nav" },
+                img({ src: "./images/ravelogo.png", alt: "Rave" }),
+                "Rave"
+            ),
+            div({ class: "nav-links" },
+                a({ href: "#installation", class: "nav-link" }, "Installation"),
+                a({ href: "https://github.com/Ttimofeyka/Rave", target: "_blank", class: "nav-link" }, "GitHub"),
+                a({ href: "https://github.com/Ttimofeyka/Rave/tree/main/specifications", target: "_blank", class: "nav-link" }, "Docs"),
+                a({ href: "#benchmarks", class: "nav-link" }, "Benchmarks")
+            ),
+            button({
+                class: "hamburger",
+                onclick: () => menuOpen.val = !menuOpen.val
+            }, "☰"),
+            div({
+                class: van.derive(() => menuOpen.val ? "nav-menu open" : "nav-menu")
+            },
+                a({ href: "#installation" }, "Installation"),
+                a({ href: "https://github.com/Ttimofeyka/Rave", target: "_blank" }, "GitHub"),
+                a({ href: "https://github.com/Ttimofeyka/Rave/tree/main/specifications", target: "_blank" }, "Docs"),
+                a({ href: "#benchmarks" }, "Benchmarks")
+            )
         )
     )
-)
+}
 
-// Hero Component
 const Hero = () => section({ class: "hero" },
     img({
         src: "./images/ravelogo.png",
@@ -65,30 +79,196 @@ const Hero = () => section({ class: "hero" },
     )
 )
 
-// Feature Card Component
-const FeatureCard = (icon, title, description) => div({ class: "feature-card glass-card" },
+const FeatureCard = (icon, title, description) => div({ class: "feature-card" },
     div({ class: "icon" }, icon),
     h3(title),
     p(description)
 )
 
-// Why Choose Rave Section
+const StepCard = (step, index) => {
+    return div({ class: "benchmark-card" },
+        div({ class: "benchmark-header" },
+            h3({ class: "benchmark-name" }, `Step ${index + 1}: ${step.label}`),
+            step.tooltip ? div({ class: "tooltip-container" },
+                span({ class: "tooltip-icon" }, "?"),
+                div({ class: "tooltip-content" }, step.tooltip)
+            ) : ""
+        ),
+        div({ class: "code-block" },
+            pre(code(step.code))
+        ),
+        step.note ? p({ style: "color: #5f5f5d; font-size: 12px; margin-top: 8px;" }, step.note) : ""
+    )
+}
+
+const DownloadReleaseSection = () => {
+    const downloadPlatform = van.state("linux")
+    
+    const downloadInstructions = {
+        linux: {
+            title: "Linux",
+            runCode: "./rave --version"
+        },
+        windows: {
+            title: "Windows",
+            runCode: "rave --version"
+        }
+    }
+    
+    return div({ class: "download-release" },
+        div({ class: "container" },
+            div({ class: "features-grid" },
+                div({ class: "benchmark-card" },
+                    h3({ class: "benchmark-name" }, "Step 1: Download Release"),
+                    a({
+                        href: "https://github.com/Ttimofeyka/Rave/releases/latest",
+                        target: "_blank",
+                        class: "btn btn-primary",
+                        style: "margin-top: 12px; display: inline-flex;"
+                    }, "Go to Releases Page"),
+                    p({ style: "margin-top: 12px; color: #5f5f5d; font-size: 14px;" },
+                        "Download the appropriate archive for your platform"
+                    )
+                ),
+                div({ class: "benchmark-card" },
+                    h3({ class: "benchmark-name" }, "Step 2: Extract"),
+                    p({ style: "color: #5f5f5d; font-size: 14px;" }, "Unpack the downloaded archive to your desired location")
+                ),
+                div({ class: "benchmark-card" },
+                    h3({ class: "benchmark-name" }, "Step 3: Run"),
+                    div({ class: "code-block" },
+                        pre(code(van.derive(() => downloadInstructions[downloadPlatform.val].runCode)))
+                    )
+                )
+            ),
+            div({ class: "example-tabs", style: "margin-top: 16px;" },
+                ...Object.keys(downloadInstructions).map(key =>
+                    button({
+                        class: van.derive(() => downloadPlatform.val === key ? "tab-btn active" : "tab-btn"),
+                        onclick: () => downloadPlatform.val = key
+                    }, downloadInstructions[key].title)
+                )
+            ),
+            p({ style: "color: #5f5f5d; font-size: 14px; margin-top: 24px;" },
+                "Requirement: C compiler (for linking)"
+            )
+        )
+    )
+}
+
+const InstallationSection = () => {
+    const installMethod = van.state("build")
+    const selectedPlatform = van.state("linux")
+    
+    const buildInstructions = {
+        linux: {
+            title: "Linux",
+            steps: [
+                {
+                    label: "Clone Repository",
+                    code: "git clone https://github.com/Ttimofeyka/Rave.git"
+                },
+                {
+                    label: "Install Requirements",
+                    code: "cd Rave && bash install.sh"
+                },
+                {
+                    label: "Build Compiler",
+                    code: "make -j4"
+                },
+                {
+                    label: "Test Installation",
+                    code: "./rave --version"
+                }
+            ]
+        },
+        windows: {
+            title: "Windows",
+            steps: [
+                {
+                    label: "Clone Repository",
+                    code: "git clone https://github.com/Ttimofeyka/Rave.git"
+                },
+                {
+                    label: "Install Requirements",
+                    code: "cd Rave && install",
+                    tooltip: "Requires Chocolatey for automatic installation. Manual alternative: Install LLVM, Make, C++ and C compilers."
+                },
+                {
+                    label: "Build Compiler",
+                    code: "make -j4"
+                },
+                {
+                    label: "Test Installation",
+                    code: "rave --version"
+                }
+            ]
+        }
+    }
+    
+    const BuildInstructionSteps = (platformKey) => div({
+        class: van.derive(() => selectedPlatform.val === platformKey && installMethod.val === "build" ? "features-grid" : "features-grid hidden"),
+        style: van.derive(() => selectedPlatform.val === platformKey && installMethod.val === "build" ? "" : "display: none;")
+    },
+        ...buildInstructions[platformKey].steps.map((step, index) => StepCard(step, index))
+    )
+    
+    return section({ id: "installation" },
+        div({ class: "container" },
+            h2("Installation"),
+            p({ class: "section-subtitle" }, "Get started with Rave in minutes. Choose your preferred method."),
+            div({ class: "example-tabs install-method-tabs" },
+                button({
+                    class: van.derive(() => installMethod.val === "build" ? "tab-btn active" : "tab-btn"),
+                    onclick: () => installMethod.val = "build"
+                }, "Build from Source"),
+                button({
+                    class: van.derive(() => installMethod.val === "download" ? "tab-btn active" : "tab-btn"),
+                    onclick: () => installMethod.val = "download"
+                }, "Download Release")
+            ),
+            div({
+                class: van.derive(() => installMethod.val === "build" ? "install-content" : "install-content hidden"),
+                style: van.derive(() => installMethod.val === "build" ? "" : "display: none;")
+            },
+                div({ class: "example-tabs" },
+                    ...Object.keys(buildInstructions).map(key =>
+                        button({
+                            class: van.derive(() => selectedPlatform.val === key ? "tab-btn active" : "tab-btn"),
+                            onclick: () => selectedPlatform.val = key
+                        }, buildInstructions[key].title)
+                    )
+                ),
+                ...Object.keys(buildInstructions).map(key => BuildInstructionSteps(key)),
+                p({ style: "color: #5f5f5d; font-size: 14px; margin-top: 24px;" },
+                    "Prerequisites: Git, LLVM, Make, C++ compiler"
+                )
+            ),
+            div({
+                class: van.derive(() => installMethod.val === "download" ? "install-content" : "install-content hidden"),
+                style: van.derive(() => installMethod.val === "download" ? "" : "display: none;")
+            },
+                DownloadReleaseSection()
+            )
+        )
+    )
+}
+
 const WhyChooseSection = () => section({ id: "features" },
     div({ class: "container" },
-        h2(span({ class: "gradient-text" }, "Why Choose"), " Rave?"),
+        h2("Why Choose Rave?"),
         p({ class: "section-subtitle" }, "A modern programming language designed for performance, simplicity, and cross-platform development"),
         div({ class: "features-grid" },
-            FeatureCard("🚀", "Blazing Fast", "Fast compilation times with LLVM-powered optimizations for maximum runtime performance"),
+            FeatureCard("⚡", "Blazing Fast", "Fast compilation times with LLVM-powered optimizations for maximum runtime performance"),
             FeatureCard("🌐", "Cross-Platform", "Compile for Windows, Linux, macOS, and embedded systems from a single codebase"),
-            FeatureCard("⚡", "LLVM Backend", "Industry-standard compiler infrastructure enabling advanced optimizations and multiple targets"),
+            FeatureCard("🔧", "LLVM Backend", "Industry-standard compiler infrastructure enabling advanced optimizations and multiple targets"),
             FeatureCard("🧠", "Manual Memory", "Full control over memory allocation with defer statements for safe cleanup"),
-            FeatureCard("🎯", "Modern Syntax", "Clean, expressive syntax with type inference, operator overloading, and familiar C-like constructs"),
+            FeatureCard("✨", "Modern Syntax", "Clean, expressive syntax with type inference, operator overloading, and familiar C-like constructs"),
             FeatureCard("🔓", "Open Source", "MPL 2.0 licensed - contribute, modify, and use freely for any project")
         )
     )
 )
 
-// Code Example Component
 const CodeExample = (id, codeContent, selectedExample) => div({
     id: id,
     class: van.derive(() => {
@@ -101,10 +281,9 @@ const CodeExample = (id, codeContent, selectedExample) => div({
     )
 )
 
-// Example Section Component
 const ExampleSection = () => {
     const selectedExample = van.state("hello")
-
+    
     const examples = {
         hello: `<span class="code-keyword">import</span> <span class="code-operator">&lt;</span>std/io<span class="code-operator">&gt;</span>
 
@@ -170,7 +349,7 @@ const ExampleSection = () => {
     std::println(buffer[<span class="code-number">0</span>], buffer[<span class="code-number">1</span>]);
 }`
     }
-
+    
     const exampleNames = {
         hello: "Hello World",
         http: "HTTP Server",
@@ -178,10 +357,10 @@ const ExampleSection = () => {
         simd: "SIMD Operations",
         defer: "File I/O"
     }
-
+    
     return section({ id: "example", class: "code-section" },
         div({ class: "container" },
-            h2(span({ class: "gradient-text" }, "Getting"), " Started"),
+            h2("Getting Started"),
             p({ class: "section-subtitle" }, "Explore Rave's syntax with these practical examples"),
             div({ class: "example-tabs" },
                 ...Object.keys(examples).map(key =>
@@ -200,15 +379,15 @@ const ExampleSection = () => {
     )
 }
 
-// Benchmark Bar Component
-const BenchmarkBar = (label, value, maxTime, colorClass, isWinner) => {
-    const percentage = Math.max(((maxTime - value) / maxTime) * 100, 15)
-
+const BenchmarkBar = (label, value, minTime, maxTime, colorClass, isWinner) => {
+    const range = maxTime - minTime
+    const percentage = range > 0 ? 15 + ((value - minTime) / range) * 85 : 50
+    
     return div({ class: "benchmark-item" },
         div({ class: "benchmark-label" },
             span(
                 label,
-                isWinner ? span({ class: "benchmark-winner" }, " ⚡ Fastest") : ""
+                isWinner ? span({ class: "benchmark-winner" }, " ⚡") : ""
             ),
             span(`${value}s`)
         ),
@@ -222,58 +401,55 @@ const BenchmarkBar = (label, value, maxTime, colorClass, isWinner) => {
     )
 }
 
-// Benchmark Card Component
 const BenchmarkCard = (name, badgeText, raveTime, gccTime, clangTime) => {
-    const maxTime = Math.max(raveTime, gccTime, clangTime) + 0.5
+    const maxTime = Math.max(raveTime, gccTime, clangTime)
     const minTime = Math.min(raveTime, gccTime, clangTime)
-
-    return div({ class: "benchmark-card glass-card" },
+    
+    return div({ class: "benchmark-card" },
         div({ class: "benchmark-header" },
             h3({ class: "benchmark-name" }, name),
             span({ class: "benchmark-badge" }, badgeText)
         ),
         div({ class: "benchmark-bars" },
-            BenchmarkBar("Rave", raveTime, maxTime, "progress-rave", raveTime === minTime),
-            BenchmarkBar("GCC", gccTime, maxTime, "progress-gcc", gccTime === minTime),
-            BenchmarkBar("Clang", clangTime, maxTime, "progress-clang", clangTime === minTime)
+            BenchmarkBar("Rave", raveTime, minTime, maxTime, "progress-rave", raveTime === minTime),
+            BenchmarkBar("GCC", gccTime, minTime, maxTime, "progress-gcc", gccTime === minTime),
+            BenchmarkBar("Clang", clangTime, minTime, maxTime, "progress-clang", clangTime === minTime)
         )
     )
 }
 
-// Benchmarks Section
 const BenchmarksSection = () => section({ id: "benchmarks" },
     div({ class: "container" },
-        h2(span({ class: "gradient-text" }, "Performance"), " Benchmarks"),
+        h2("Performance Benchmarks"),
         p({ class: "section-subtitle" }, "Rave competes with C compilers - powered by LLVM optimizations"),
         div({ class: "features-grid" },
             BenchmarkCard("N-Queen", "Algorithm", 2.78, 2.97, 2.74),
             BenchmarkCard("Dirichlet", "Mathematics", 1.10, 1.28, 1.19),
             BenchmarkCard("Mandelbrot", "Graphics", 9.04, 9.27, 8.53)
         ),
-        p({ class: "section-subtitle", style: "margin-top: 40px; font-size: 0.9rem;" },
+        p({ class: "section-subtitle", style: "margin-top: 40px; font-size: 14px;" },
             "Tested on Fedora 43, i5-12400f, 32GB DDR4 3200MHz | LLVM 18, GCC 14"
         )
     )
 )
 
-// Stats Section
 const StatsSection = () => section({ id: "stats" },
     div({ class: "container" },
-        h2(span({ class: "gradient-text" }, "Project"), " Stats"),
+        h2("Project Stats"),
         div({ class: "stats-grid" },
-            div({ class: "stat-card glass-card" },
+            div({ class: "stat-card" },
                 div({ class: "stat-number" }, "100%"),
                 p({ class: "stat-label" }, "Open Source")
             ),
-            div({ class: "stat-card glass-card" },
+            div({ class: "stat-card" },
                 div({ class: "stat-number" }, "LLVM"),
                 p({ class: "stat-label" }, "Backend")
             ),
-            div({ class: "stat-card glass-card" },
+            div({ class: "stat-card" },
                 div({ class: "stat-number" }, "4+"),
                 p({ class: "stat-label" }, "Target Platforms")
             ),
-            div({ class: "stat-card glass-card" },
+            div({ class: "stat-card" },
                 div({ class: "stat-number" }, "MPL 2.0"),
                 p({ class: "stat-label" }, "License")
             )
@@ -281,10 +457,9 @@ const StatsSection = () => section({ id: "stats" },
     )
 )
 
-// Features List Section
 const FeaturesListSection = () => section({ id: "features-list" },
     div({ class: "container" },
-        h2(span({ class: "gradient-text" }, "Language"), " Features"),
+        h2("Language Features"),
         div({ class: "features-list" },
             div({ class: "feature-item" },
                 div({ class: "check" }, "✓"),
@@ -316,13 +491,12 @@ const FeaturesListSection = () => section({ id: "features-list" },
             ),
             div({ class: "feature-item" },
                 div({ class: "check" }, "✓"),
-                p(" defer statement for cleanup")
+                p("defer statement for cleanup")
             )
         )
     )
 )
 
-// Footer Component
 const Footer = () => footer({ class: "footer" },
     div({ class: "container" },
         div({ class: "footer-links" },
@@ -334,16 +508,15 @@ const Footer = () => footer({ class: "footer" },
         ),
         p({ class: "footer-copy" },
             "Released under ",
-            a({ href: "http://mozilla.org/MPL/2.0/", target: "_blank", style: "color: var(--primary-light);" }, "Mozilla Public License 2.0")
+            a({ href: "http://mozilla.org/MPL/2.0/", target: "_blank", style: "color: #1c1c1c; text-decoration: underline;" }, "Mozilla Public License 2.0")
         )
     )
 )
 
-// Main App Component
 const App = () => div(
-    div({ class: "bg-gradient" }),
     Navigation(),
     Hero(),
+    InstallationSection(),
     WhyChooseSection(),
     ExampleSection(),
     BenchmarksSection(),
@@ -352,21 +525,16 @@ const App = () => div(
     Footer()
 )
 
-// Mount the app
 van.add(document.body, App())
 
-// Side Effects
 setTimeout(() => {
-    // Set scroll to top
     window.scrollTo(0, 0)
-
-    // Intersection observer for animations
+    
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if(entry.isIntersecting) {
                 entry.target.classList.add('visible')
-
-                // Animate benchmark progress bars
+                
                 const progressBars = entry.target.querySelectorAll('.progress-fill')
                 progressBars.forEach((bar, index) => {
                     setTimeout(() => {
@@ -379,16 +547,20 @@ setTimeout(() => {
             }
         })
     }, { threshold: 0.15 })
-
+    
     document.querySelectorAll('section').forEach(section => { observer.observe(section) })
-
-    // Smooth scroll
+    
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function(e) {
             e.preventDefault()
             const target = document.querySelector(this.getAttribute('href'))
             if (target) {
                 target.scrollIntoView({ behavior: 'smooth', block: 'start' })
+            }
+            
+            const navMenu = document.querySelector('.nav-menu')
+            if (navMenu && navMenu.classList.contains('open')) {
+                navMenu.classList.remove('open')
             }
         })
     })
